@@ -91,6 +91,23 @@ def Taskread():
     x = task_crud_service.getallTask(session= Depends(get_session))
     return x
 
+
+@app.get("/readincompletetask",tags={"Task"})
+
+def Taskreadincomplete():
+    task_crud_service = TaskCRUDService()
+    x = task_crud_service.getIncompleteTask(session= Depends(get_session))
+    return x
+
+
+@app.get("/readcompletetask",tags={"Task"})
+
+def Taskreadincomplete():
+    task_crud_service = TaskCRUDService()
+    x = task_crud_service.getCompleteTask(session= Depends(get_session))
+    return x
+
+
 @app.get("/readtaskbyt_code",tags={"Task"})
 
 def Taskreadbyid(t_code:str):

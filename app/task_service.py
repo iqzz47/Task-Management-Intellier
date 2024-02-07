@@ -4,6 +4,7 @@ from .dbconfig import *
 
 
 class TaskCRUDService:
+
     session = Session(engine)
     def createTask(self, new_Task: Task):
         new_task_instance = Task.from_orm(new_Task)
@@ -15,6 +16,14 @@ class TaskCRUDService:
 
     def getallTask(self, session=session):
         tasks = self.session.exec(select(Task)).all()
+        return tasks
+    
+    def getIncompleteTask(self, session=session):
+        tasks = self.session.exec(select(Task).where(Task.status == "Incomplete")).all()
+        return tasks
+    
+    def getCompleteTask(self, session=session):
+        tasks = self.session.exec(select(Task).where(Task.status == "Complete")).all()
         return tasks
     
 
