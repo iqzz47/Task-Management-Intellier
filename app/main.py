@@ -108,17 +108,20 @@ def Taskreadincomplete():
     return x
 
 
-@app.get("/readtaskbyt_code",tags={"Task"})
 
-def Taskreadbyid(t_code:str):
+@app.get("/readtaskbyt_code/{t_code}", tags={"Task"})
+def Taskreadbyid(t_code):
+    print(f"Received t_code: {t_code}")
     user_crud_service = TaskCRUDService()
-    x=user_crud_service.getTaskbyid(t_code)
+    x = user_crud_service.getTaskbyid(t_code)
     return x
-    
 
-@app.put("/updatetaskdetail",tags={"Task"})
+
+@app.put("/updatetaskdetail/{t_code}",tags={"Task"})
 
 def TaskUpdate(t_code:str,y:Task):
+        print(f"Received t_code: {t_code}")
+        print(f"Received t_code: {Task.duration}")
         user_crud_service = TaskCRUDService()
         db_task_instance = user_crud_service.updateTask(t_code, y)
 
