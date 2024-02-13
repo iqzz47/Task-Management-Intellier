@@ -26,11 +26,17 @@ class TaskCRUDService:
         tasks = self.session.exec(select(Task).where(Task.status == "Complete")).all()
         return tasks
     
+    def getonprogressTask(self, session=session):
+        tasks = self.session.exec(select(Task).where(Task.status == "On Progress")).all()
+        return tasks
 
     def getTaskbyid(self,t_code):
         user = self.session.exec(select(Task).where(Task.t_code == t_code)).one_or_none()
         return user
     
+    def cancelTask(self,session=session):
+         tasks = self.session.exec(select(Task).where(Task.status == "Cancel")).all()
+         return tasks
 
 
     def updateTask(self, t_code:str, updated_task: Task):

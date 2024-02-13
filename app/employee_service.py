@@ -53,7 +53,15 @@ class EmployeeCRUDService:
           self.session.commit()
 
           return True
+    
 
+    def verify(self,employee_id):
+           existing_employee = self.session.exec(select(Employee).where(Employee.id == employee_id)).one_or_none()
+           if existing_employee:
+              return True
+           else:
+              return False
+                
         
             
 

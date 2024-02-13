@@ -74,6 +74,13 @@ def EmployeeDelete(employee_id:int):
      return db_user_instance
 
 
+@app.get("/verifyemployee",tags={"EMPLOYEE"})
+
+def verify(employeeid:int):
+     user_crud_service=EmployeeCRUDService() 
+     db_user_instance = user_crud_service.verify(employeeid)
+     return db_user_instance
+
 @app.post("/createtask",tags={"Task"})
 
 def TaskCreate(task_data: Task):
@@ -108,6 +115,20 @@ def Taskreadincomplete():
     return x
 
 
+@app.get("/readonprogresstask",tags={"Task"})
+
+def Taskreadonprogress():
+    task_crud_service = TaskCRUDService()
+    x = task_crud_service.getonprogressTask(session= Depends(get_session))
+    return x
+
+@app.get("/readcanceltask",tags={"Task"})
+
+def Taskreadonprogress():
+    task_crud_service = TaskCRUDService()
+    x = task_crud_service.cancelTask(session= Depends(get_session))
+    return x
+
 
 @app.get("/readtaskbyt_code/{t_code}", tags={"Task"})
 def Taskreadbyid(t_code):
@@ -120,8 +141,8 @@ def Taskreadbyid(t_code):
 @app.put("/updatetaskdetail/{t_code}",tags={"Task"})
 
 def TaskUpdate(t_code:str,y:Task):
-        print(f"Received t_code: {t_code}")
-        print(f"Received t_code: {Task.duration}")
+        print(f"Received t: {t_code}")
+       
         user_crud_service = TaskCRUDService()
         db_task_instance = user_crud_service.updateTask(t_code, y)
 
