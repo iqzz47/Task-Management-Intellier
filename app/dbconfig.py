@@ -15,6 +15,13 @@ password = os.getenv('DB_PASSWORD')
 port = os.getenv('DB_PORT')
 dbhost = os.getenv('DB_HOST')
 
+
+
+#Authentication
+ACCESS_TOKEN_EXPIRE_MINUTES = os.environ.get("ACCESS_TOKEN_EXPIRE_MINUTES")
+SECRET_KEY = os.environ.get("SECRET_KEY")
+ALGORITHM = os.environ.get("ALGORITHM")
+
 dburl = f"postgresql://{user}:{password}@{dbhost}:{port}/{db_name}"
 
 engine = create_engine(dburl)
