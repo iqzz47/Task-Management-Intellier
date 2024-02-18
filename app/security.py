@@ -18,7 +18,7 @@ def verify_password(plain_password, hashed_password) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
 
 
-async def create_access_token(data, expires_delta: timedelta | None = None):
+def create_access_token(data, expires_delta: timedelta | None = None):
     to_encode = data.copy()
 
     if expires_delta:

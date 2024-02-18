@@ -6,6 +6,7 @@ from .model import Employee
 from .model import Task
 from .employee_service import EmployeeCRUDService
 from .task_service import TaskCRUDService
+from .authentication_service import AuthenticationService
 from fastapi import  Query
 from .dbconfig import *
 
@@ -155,3 +156,12 @@ def TaskDelete(t_code:str):
      db_user_instance = user_crud_service.deletetask(t_code)
 
      return db_user_instance
+
+
+#Authentication API
+
+@app.get("/token",tags={"Authentication"})
+def AccessToken(employeeid:int,password:str):
+    user_auth_service = AuthenticationService()
+    x=user_auth_service.get_token(employeeid=employeeid,password=password)
+    return x
