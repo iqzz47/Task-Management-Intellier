@@ -1,4 +1,5 @@
-from fastapi import FastAPI ,Depends
+from fastapi import FastAPI ,Depends,APIRouter
+
 from .dbconfig import init_db
 from sqlmodel import Session,select,SQLModel, create_engine
 from fastapi.middleware.cors import CORSMiddleware
@@ -9,9 +10,65 @@ from .task_service import TaskCRUDService
 from .authentication_service import AuthenticationService
 from fastapi import  Query
 from .dbconfig import *
+from .authentication_service import get_current_user
+
+from fastapi import APIRouter
+from.import authenticationapi
+from.import employeeapi
+from.import taskapi
+
+api = FastAPI()
+api = FastAPI(title="Task management")
+
+api.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+api.include_router(authenticationapi.router, prefix="/api/auth", tags=["Authentication"])
+api.include_router(employeeapi.user_router, prefix="/api/user", tags=["UserInfo"])
+api.include_router(employeeapi.router, prefix="/api/user", tags=["UserInfo"])
+
+api.include_router(taskapi.user_router, prefix="/api/task", tags=["Task"])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""
 
 app = FastAPI()
 app = FastAPI(title="Task management")
+
+
+user_router = APIRouter()
+router = APIRouter(dependencies=[Depends(get_current_user)])
 
 
 items = {}
@@ -165,3 +222,6 @@ def AccessToken(employeeid:int,password:str):
     user_auth_service = AuthenticationService()
     x=user_auth_service.get_token(employeeid=employeeid,password=password)
     return x
+
+
+    """
